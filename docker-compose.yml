@@ -1,0 +1,24 @@
+# Hendrix / Driveworks Interface
+#
+# Directory monitoring tool for converting hendrix order (xml) into Driveworks
+# order (xml). Creates directories if they don't exist in release location.
+#
+# configuration information is stored in file: HendrixXMLToAutoPilot.ini
+#
+# docker run -it --rm --name my-running-script -v "$PWD":/usr/src/myapp -w /usr/src/myapp perl:5.20 perl your-daemon-or-script.pl
+
+version: '2'
+
+services:
+
+  web:
+    container_name: DirMonitor
+    image: mrcoz/watcher
+    build:
+      context: .
+      dockerfile: .docker/perl.dockerfile
+
+    volumes:
+      - ./:/usr/src/myapp/
+
+    restart: always
